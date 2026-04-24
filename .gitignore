@@ -29,3 +29,12 @@ Thumbs.db
 # Generated
 companies/INDEX.md.tmp
 .reports/*.draft.md
+
+# Test artifacts
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
+# Jupyter
+.ipynb_checkpoints/
