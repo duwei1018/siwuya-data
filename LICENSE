@@ -1,0 +1,55 @@
+# siwuya-data — Dual License
+
+This repository uses **two licenses** depending on the path:
+
+## Code — MIT License
+
+Applies to all source code, including but not limited to:
+
+- `integrity_framework/src/**`
+- Any future `tools/**`, `scripts/**`, `validators/**`
+
+Full text: see [LICENSE-MIT.txt](LICENSE-MIT.txt).
+
+You can use, modify, redistribute, and incorporate the code into commercial
+software, with attribution.
+
+## Data and documentation — Creative Commons Attribution-ShareAlike 4.0 International
+
+Applies to all data files and documentation, including but not limited to:
+
+- `companies/**` (company profiles)
+- `templates/**` (research templates)
+- `skills/**` (SKILL.md files)
+- `integrity_framework/METHODOLOGY.md`
+- All `*.md` documentation files
+
+Full text: see [LICENSE-CC-BY-SA.txt](LICENSE-CC-BY-SA.txt).
+
+You can share and adapt the content, including for commercial purposes,
+**provided that** you:
+
+1. Give appropriate credit (link back to this repository)
+2. Indicate any changes you made
+3. Distribute your derivative work under the **same** CC-BY-SA 4.0 license
+
+## Why dual-license
+
+- Code should be freely embeddable in any project (MIT is the de-facto standard).
+- Data and methodology is the result of human research effort, and the SA
+  ("ShareAlike") clause prevents downstream rebadging without giving back to the
+  ecosystem.
+
+## When in doubt
+
+If a file does not clearly fall into "code" or "data", default to **CC-BY-SA 4.0**
+(the more restrictive of the two for downstream redistribution).
+
+## Contributions
+
+By contributing to this repository (via PR, issue, etc.), you agree that your
+contribution is licensed under the matching license for the path you contribute to.
+
+---
+
+Copyright (c) 2026 思无崖 (siwuya) and contributors.

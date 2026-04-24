@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+title: "siwuya-data: A public data foundation for value-investing research"
+abstract: >
+  A public, structured data foundation for value-investing research, including
+  company profiles (CN/HK/US listed), an integrity-scoring framework for
+  evaluating management promise fulfillment, and reusable research templates.
+authors:
+  - name: "siwuya (思无崖) and contributors"
+    website: "https://siwuya.org"
+type: dataset
+license: CC-BY-SA-4.0
+repository-code: "https://github.com/duwei1018/siwuya-data"
+url: "https://siwuya.org"
+date-released: "2026-04-24"
+version: "0.0.2"
+keywords:
+  - value investing
+  - corporate governance
+  - integrity scoring
+  - management accountability
+  - open data
+  - China stock market
+  - Hong Kong stock market
+  - US stock market
+preferred-citation:
+  type: misc
+  title: "siwuya-data: A public data foundation for value-investing research"
+  authors:
+    - name: "siwuya (思无崖) and contributors"
+  year: 2026
+  url: "https://github.com/duwei1018/siwuya-data"
+  notes: "Licensed under MIT (code) and CC BY-SA 4.0 (data and documentation)"
