@@ -61,17 +61,75 @@ siwuya-data/
 │   ├── cn/                          # A股
 │   └── INDEX.md                     # 自动生成的全档案索引
 │
-├── integrity_framework/             # 诚信评分框架
+├── integrity_framework/             # 诚信评分框架(Stage 4 已完工)
 │   ├── METHODOLOGY.md               # 方法论(为什么这么打分)
 │   ├── README.md                    # 框架使用说明
-│   └── src/                         # 算法实现(MIT 协议)
+│   ├── src/                         # 算法实现(MIT)— 56 tests · 97% coverage
+│   ├── tests/
+│   ├── docs/                        # 4 份辅助文档(承诺定义/权重/边界案例/已知盲区)
+│   └── examples/scoring_walkthrough.ipynb
 │
-├── templates/                       # 研究模板
-│   └── ...
+├── templates/                       # 研究模板(Stage 5 已完工)
+│   ├── company_research_template.md # 公司深度研究 8 段标准结构
+│   ├── moat_assessment.md           # Pat Dorsey 五类护城河评估
+│   ├── earnings_call_notes.md       # 电话会结构化纪要
+│   └── bull_bear_dialectic.md       # 正反辩证(自我 debate)
 │
-└── skills/                          # 给 Claude Code / Desktop 用户的 SKILL.md
-    └── ...
+├── skills/                          # 给 Claude Code / Desktop 用户的 SKILL(Stage 5)
+│   └── value-investing-research/
+│       ├── SKILL.md
+│       ├── reference/               # 护城河/财务红旗/诚信信号 三份知识库
+│       └── scripts/load_company.py
+│
+└── scripts/                         # 校验工具
+    └── validate_company.py
 ```
+
+---
+
+## 快速开始
+
+### 给研究者:用模板写一份公司研究
+
+```bash
+git clone https://github.com/duwei1018/siwuya-data
+cd siwuya-data
+cp templates/company_research_template.md research/xiaomi-2026-Q1.md
+# 按章节填空,每段开头有填写指南注释
+```
+
+### 给 Python 用户:跑一遍诚信评分
+
+```python
+from datetime import date
+from integrity_framework.src import (
+    Verdict, compute_integrity_score, load_promises_from_company_yaml,
+)
+
+promises = load_promises_from_company_yaml(
+    "companies/_examples/example-company.yaml"
+)
+verdicts = [
+    Verdict(promise_id="fy24-revenue-25pct", outcome="broken",
+            reasoning="FY24 实际 +18%,低于指引 7pp",
+            judged_at=date(2025, 4, 30), judged_by="@your-handle"),
+]
+score = compute_integrity_score(verdicts, as_of=date(2026, 4, 24))
+print(score.score, score.breakdown)
+```
+
+完整 walkthrough:[`integrity_framework/examples/scoring_walkthrough.ipynb`](integrity_framework/examples/scoring_walkthrough.ipynb)
+
+### 给 Claude Code / Desktop 用户
+
+```bash
+git clone https://github.com/duwei1018/siwuya-data
+cd siwuya-data
+claude   # 自动加载 skills/value-investing-research/SKILL.md
+# 然后:"帮我用思无崖框架研究一下小米"
+```
+
+详见 [`skills/value-investing-research/SKILL.md`](skills/value-investing-research/SKILL.md)。
 
 ---
 
