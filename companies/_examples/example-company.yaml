@@ -1,0 +1,131 @@
+# 这是一份**示例档案**,展示 schema 的所有字段用法。
+# 不要把它当作真实公司档案。EXAMPLE 公司是虚构的。
+
+_example: true
+
+meta:
+  schema_version: "0.1.0"
+  last_reviewed: "2026-04-24"
+  reviewer: "siwuya-team"
+  data_freshness_note: "示例数据,无真实时效性"
+
+identity:
+  primary_ticker: "EXAMPLE.US"
+  aliases: ["EXAMPLE", "Example Inc.", "示例公司"]
+  name_zh: "示例"
+  name_zh_full: "示例科技股份有限公司"
+  name_en: "Example Inc."
+  slug: "example-company"
+  exchange: "NASDAQ"
+  listing_date: "2010-01-01"
+  fiscal_year_end: "12-31"
+  reporting_currency: "USD"
+  hq_country: "US"
+  hq_city: "Cupertino"
+  website: "https://example.com"
+  ir_website: "https://investor.example.com"
+
+classification:
+  gics_sector: "Information Technology"
+  gics_industry_group: "Software & Services"
+  primary_business_zh: "面向企业的 SaaS 协作软件"
+  business_one_liner_zh: "卖订阅制协作工具,按席位收费,客户主要为中大型企业"
+  business_one_liner_en: "Subscription-based collaboration software for mid-to-large enterprises, priced per seat."
+
+segments:
+  - name: "订阅(Subscription)"
+    revenue_share_fy2024: 0.85
+    margin_profile: "高毛利,~78% gross margin"
+    note: "公司核心收入引擎"
+  - name: "专业服务(Professional Services)"
+    revenue_share_fy2024: 0.12
+    margin_profile: "低毛利,~30% gross margin"
+    note: "为大客户做定制实施"
+  - name: "其他(培训/认证)"
+    revenue_share_fy2024: 0.03
+    margin_profile: "中等毛利"
+
+business_model:
+  revenue_engines:
+    - "订阅(seat-based,$25/seat/month)"
+    - "增值服务(高级支持、培训认证)"
+  cost_structure_notes: "示例:研发占营收 ~22%,销售费用 ~38%,基建/CDN 在 cost of revenue 占 ~10%。"
+  unit_economics_highlights:
+    - "示例:Net Dollar Retention ~118%(FY2024)"
+    - "示例:Magic Number ~0.85,LTV/CAC ~5.2"
+    - "示例:Rule of 40 = revenue growth 22% + FCF margin 21% = 43%"
+
+moat:
+  assessment: "narrow"
+  types:
+    - type: "switching_costs"
+      strength: "moderate"
+      reasoning_zh: "示例:工作流深度嵌入用户日常流程,迁移成本约 6-12 个月,但有竞品提供迁移工具(数据来源:示例引用)"
+    - type: "network_effects"
+      strength: "weak"
+      reasoning_zh: "示例:跨组织协作场景有弱网络效应,但同行业大客户更倾向单方部署(示例引用)"
+  pat_dorsey_framework:
+    intangible_assets: "品牌弱,无专利护城河"
+    switching_costs: "moderate(如上)"
+    network_effects: "weak(如上)"
+    cost_advantage: "无"
+    efficient_scale: "无"
+
+management:
+  chairman_ceo:
+    name_zh: "张示例"
+    name_en: "Jane Example"
+    tenure_since: "2018-04-01"
+    background_brief: "示例:Stanford CS BS,前 BigTech 工程总监,2015 加入示例公司任 CTO,2018 升任 CEO。"
+  key_executives:
+    - name_zh: "李示例"
+      name_en: "John Example"
+      role: "CFO"
+    - name_zh: "王示例"
+      name_en: "Sarah Example"
+      role: "CRO"
+  governance_notes: "示例:单层股权,5 名独立董事(共 9 席),无重大关联交易,审计委员会全独立。"
+
+integrity_tracking:
+  tracked_promises:
+    - id: "fy24-revenue-25pct"
+      promise_zh: "示例:CEO 在 FY24 Q1 earnings call 中承诺全年营收增速达 25%。"
+      promise_en: "Example: CEO committed to 25% YoY revenue growth in FY24 on Q1 earnings call."
+      source: "https://example.com/q1-2024-call-transcript"
+      made_on: "2024-05-01"
+      due_by: "2025-02-15"
+      verification_type: "financial_metric"
+    - id: "agent-product-launch"
+      promise_zh: "示例:CTO 在 2024 年 9 月公司大会承诺 2025 Q1 推出 AI Agent 产品 GA。"
+      promise_en: "Example: CTO committed to GA launch of AI Agent product in Q1 2025."
+      source: "https://example.com/keynote-2024-09"
+      made_on: "2024-09-15"
+      due_by: "2025-03-31"
+      verification_type: "product_launch"
+  scoring_data_location: "https://siwuya.org/company/example-company"
+
+key_risks:
+  - category: "competitive"
+    risk_zh: "示例:Microsoft Teams / Notion 等大厂竞品带来定价压力,FY24 ASP 同比 -3%。"
+  - category: "execution"
+    risk_zh: "示例:AI Agent 产品涉及全新产品线,过去无类似工程经验,延期风险中等。"
+  - category: "macro"
+    risk_zh: "示例:中大型企业 IT 预算对宏观周期敏感,经济下行可能压缩 NDR。"
+
+further_reading:
+  primary_sources:
+    - title: "示例:FY2024 10-K(年报)"
+      url: "https://example.com/sec/10-k-2024.pdf"
+    - title: "示例:Q4 2024 earnings call transcript"
+      url: "https://example.com/q4-2024-transcript"
+  third_party_research:
+    - title: "示例:Stratechery 对 Example 的护城河分析(2024-08)"
+      url: "https://stratechery.com/2024/example-moat"
+      note: "对 switching costs 评估比官方乐观,值得对照"
+    - title: "示例:Bessemer State of the Cloud 2024"
+      url: "https://www.bvp.com/atlas/state-of-the-cloud-2024"
+
+disclaimer: |
+  本档案是 schema 示例(_example: true),数据虚构,不代表任何真实公司。
+
+  详细免责条款见 [DISCLAIMER.md](../../DISCLAIMER.md)。

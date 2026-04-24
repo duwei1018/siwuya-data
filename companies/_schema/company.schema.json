@@ -1,0 +1,408 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/duwei1018/siwuya-data/blob/main/companies/_schema/company.schema.json",
+  "title": "Company Profile",
+  "description": "结构化公司档案 schema for siwuya-data v0.x",
+  "type": "object",
+  "required": ["meta", "identity", "classification", "business_model", "moat", "management", "integrity_tracking", "key_risks", "further_reading", "disclaimer"],
+  "additionalProperties": false,
+  "properties": {
+    "_example": {
+      "type": "boolean",
+      "description": "若为 true,则此档案为 schema 示例,不应出现在公开列表"
+    },
+    "meta": {
+      "type": "object",
+      "required": ["schema_version", "last_reviewed", "reviewer", "data_freshness_note"],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "description": "本档案匹配的 schema 版本(SemVer)"
+        },
+        "last_reviewed": {
+          "type": "string",
+          "format": "date",
+          "description": "本档案最近一次人工审阅日期(YYYY-MM-DD)"
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1,
+          "description": "审阅者署名(GitHub 用户名 / 真名 / 邮箱),多人用 ' + ' 连接"
+        },
+        "data_freshness_note": {
+          "type": "string",
+          "description": "本档案数据时效性说明(如 'FY2024 年报 + 2025 Q1 季报')"
+        }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "required": ["primary_ticker", "aliases", "name_zh", "name_en", "slug", "exchange", "listing_date", "fiscal_year_end", "reporting_currency", "hq_country", "hq_city", "website"],
+      "additionalProperties": false,
+      "properties": {
+        "primary_ticker": {
+          "type": "string",
+          "minLength": 1,
+          "description": "主代码,如 AAPL.US / 0700.HK / 600519.SH"
+        },
+        "aliases": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "其他代码或常用别名,如 ['AAPL', 'Apple', '苹果公司']"
+        },
+        "name_zh": {
+          "type": "string",
+          "minLength": 1,
+          "description": "中文简称,如 '苹果' '腾讯'"
+        },
+        "name_zh_full": {
+          "type": "string",
+          "description": "中文全称,如 '苹果公司'"
+        },
+        "name_en": {
+          "type": "string",
+          "minLength": 1,
+          "description": "英文名,如 'Apple Inc.'"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+          "description": "URL slug(小写字母+数字+连字符),如 'apple' 'tencent' 'kweichow-moutai'"
+        },
+        "exchange": {
+          "type": "string",
+          "enum": ["NASDAQ", "NYSE", "AMEX", "OTC", "HKEX", "SSE", "SZSE", "BSE", "TWSE", "TSE", "LSE", "EURONEXT", "OTHER"],
+          "description": "上市交易所"
+        },
+        "listing_date": {
+          "type": "string",
+          "format": "date",
+          "description": "上市日期(原始上市,IPO 日)"
+        },
+        "fiscal_year_end": {
+          "type": "string",
+          "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+          "description": "财年结束日 MM-DD,如 '12-31' '09-30' '03-31'"
+        },
+        "reporting_currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "报告货币(ISO 4217),如 USD / HKD / CNY"
+        },
+        "hq_country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "总部所在国(ISO 3166-1 alpha-2),如 US / CN / HK"
+        },
+        "hq_city": {
+          "type": "string",
+          "minLength": 1,
+          "description": "总部所在城市"
+        },
+        "website": {
+          "type": "string",
+          "format": "uri",
+          "description": "官方主站"
+        },
+        "ir_website": {
+          "type": "string",
+          "format": "uri",
+          "description": "投资者关系页(可选,如有独立 IR 站)"
+        }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "required": ["gics_sector", "gics_industry_group", "primary_business_zh", "business_one_liner_zh", "business_one_liner_en"],
+      "additionalProperties": false,
+      "properties": {
+        "gics_sector": {
+          "type": "string",
+          "minLength": 1,
+          "description": "GICS Sector(11 大类),如 'Information Technology'"
+        },
+        "gics_industry_group": {
+          "type": "string",
+          "minLength": 1,
+          "description": "GICS Industry Group(24 个),如 'Technology Hardware & Equipment'"
+        },
+        "primary_business_zh": {
+          "type": "string",
+          "minLength": 1,
+          "description": "主营业务一句话(中文)"
+        },
+        "business_one_liner_zh": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "description": "60 字以内中文电梯演讲"
+        },
+        "business_one_liner_en": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "120 字符以内英文 elevator pitch"
+        }
+      }
+    },
+    "segments": {
+      "type": "array",
+      "description": "业务分部(可选,无强制至少 1 项,部分小公司可省略)",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "分部名称"
+          },
+          "revenue_share_fy2024": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "FY2024 营收占比(0.0~1.0)"
+          },
+          "margin_profile": {
+            "type": "string",
+            "description": "毛利率/利润率描述,如 '高毛利低增长' '低毛利规模驱动'"
+          },
+          "note": {
+            "type": "string",
+            "description": "其他备注"
+          }
+        }
+      }
+    },
+    "business_model": {
+      "type": "object",
+      "required": ["revenue_engines", "cost_structure_notes", "unit_economics_highlights"],
+      "additionalProperties": false,
+      "properties": {
+        "revenue_engines": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "description": "营收引擎(可多项),如 ['硬件销售', '服务订阅', '广告']"
+        },
+        "cost_structure_notes": {
+          "type": "string",
+          "minLength": 1,
+          "description": "成本结构关键点"
+        },
+        "unit_economics_highlights": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "description": "单位经济性要点(如 ARPU / LTV / Take Rate)"
+        }
+      }
+    },
+    "moat": {
+      "type": "object",
+      "required": ["assessment", "types", "pat_dorsey_framework"],
+      "additionalProperties": false,
+      "properties": {
+        "assessment": {
+          "type": "string",
+          "enum": ["narrow", "wide", "none", "unclear"],
+          "description": "整体护城河评估(narrow/wide/none/unclear)"
+        },
+        "types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["type", "strength", "reasoning_zh"],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["network_effects", "switching_costs", "intangible_assets", "cost_advantage", "efficient_scale", "other"],
+                "description": "护城河类型"
+              },
+              "strength": {
+                "type": "string",
+                "enum": ["weak", "moderate", "strong"],
+                "description": "强度"
+              },
+              "reasoning_zh": {
+                "type": "string",
+                "minLength": 1,
+                "description": "中文推理(必须附数据来源)"
+              }
+            }
+          }
+        },
+        "pat_dorsey_framework": {
+          "type": "object",
+          "description": "Pat Dorsey 五维护城河打分(intangibles/switching/network/cost/scale 等),自由 key-value",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "management": {
+      "type": "object",
+      "required": ["chairman_ceo", "key_executives", "governance_notes"],
+      "additionalProperties": false,
+      "properties": {
+        "chairman_ceo": {
+          "type": "object",
+          "required": ["name_zh", "name_en", "tenure_since", "background_brief"],
+          "additionalProperties": false,
+          "properties": {
+            "name_zh": { "type": "string", "minLength": 1 },
+            "name_en": { "type": "string", "minLength": 1 },
+            "tenure_since": {
+              "type": "string",
+              "format": "date",
+              "description": "履任日期(YYYY-MM-DD)"
+            },
+            "background_brief": {
+              "type": "string",
+              "minLength": 1,
+              "description": "履历要点"
+            }
+          }
+        },
+        "key_executives": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name_zh", "role"],
+            "additionalProperties": false,
+            "properties": {
+              "name_zh": { "type": "string", "minLength": 1 },
+              "name_en": { "type": "string" },
+              "role": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "governance_notes": {
+          "type": "string",
+          "description": "公司治理关键点(双层股权 / 独立董事比例 / 关联交易等)"
+        }
+      }
+    },
+    "integrity_tracking": {
+      "type": "object",
+      "required": ["tracked_promises", "scoring_data_location"],
+      "additionalProperties": false,
+      "properties": {
+        "tracked_promises": {
+          "type": "array",
+          "description": "被追踪的管理层公开承诺。本仓库只存事实(承诺过什么),具体兑现度评分在主站。",
+          "items": {
+            "type": "object",
+            "required": ["id", "promise_zh", "source", "verification_type"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$",
+                "description": "承诺唯一 id(稳定 slug,不要变),如 'fy24-revenue-guidance'"
+              },
+              "promise_zh": {
+                "type": "string",
+                "minLength": 1,
+                "description": "承诺原文(中文整理)"
+              },
+              "promise_en": {
+                "type": "string",
+                "description": "承诺原文(英文,如有)"
+              },
+              "source": {
+                "type": "string",
+                "format": "uri",
+                "description": "数据来源 URL(财报 / 公告 / earnings call transcript)"
+              },
+              "made_on": {
+                "type": "string",
+                "format": "date",
+                "description": "承诺做出日期"
+              },
+              "due_by": {
+                "type": "string",
+                "format": "date",
+                "description": "承诺到期日(如有明确时间)"
+              },
+              "verification_type": {
+                "type": "string",
+                "enum": ["financial_metric", "product_launch", "strategic_initiative", "ESG_target", "other"],
+                "description": "验证类型"
+              }
+            }
+          }
+        },
+        "scoring_data_location": {
+          "type": "string",
+          "format": "uri",
+          "description": "本公司当前评分数据所在(siwuya.org 主站某 URL)"
+        }
+      }
+    },
+    "key_risks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["category", "risk_zh"],
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["regulatory", "competitive", "technology", "macro", "geopolitical", "execution", "governance", "ESG", "financial", "other"],
+            "description": "风险类别"
+          },
+          "risk_zh": {
+            "type": "string",
+            "minLength": 1,
+            "description": "风险描述(中文)"
+          }
+        }
+      }
+    },
+    "further_reading": {
+      "type": "object",
+      "required": ["primary_sources", "third_party_research"],
+      "additionalProperties": false,
+      "properties": {
+        "primary_sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "url"],
+            "additionalProperties": false,
+            "properties": {
+              "title": { "type": "string", "minLength": 1 },
+              "url": { "type": "string", "format": "uri" }
+            }
+          },
+          "description": "一手资料(财报 / 公司公告 / 监管文件)"
+        },
+        "third_party_research": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "url"],
+            "additionalProperties": false,
+            "properties": {
+              "title": { "type": "string", "minLength": 1 },
+              "url": { "type": "string", "format": "uri" },
+              "note": { "type": "string", "description": "推荐理由(可选)" }
+            }
+          },
+          "description": "三方研究(博客 / 论文 / 媒体报道)"
+        }
+      }
+    },
+    "disclaimer": {
+      "type": "string",
+      "minLength": 1,
+      "description": "本档案的免责声明(通常引用 DISCLAIMER.md 顶级版本,可加档案特定补充)"
+    }
+  }
+}
